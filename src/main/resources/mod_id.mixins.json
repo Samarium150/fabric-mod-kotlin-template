@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.mod_author.mod_id.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "ExampleMixin"
+  ]
+}
