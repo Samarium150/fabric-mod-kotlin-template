@@ -41,14 +41,14 @@ dependencies {
 }
 
 tasks {
-    val javaVersion = JavaVersion.VERSION_1_8
+    val javaVersion = JavaVersion.VERSION_16
 
     withType<JavaCompile> {
         options.encoding = "UTF-8"
         sourceCompatibility = javaVersion.toString()
         targetCompatibility = javaVersion.toString()
         if (JavaVersion.current().isJava9Compatible) {
-            options.release.set(8)
+            options.release.set(javaVersion.toString().toInt())
         }
     }
 
@@ -73,7 +73,7 @@ tasks {
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(8))
+            languageVersion.set(JavaLanguageVersion.of(javaVersion.toString()))
         }
         sourceCompatibility = javaVersion
         targetCompatibility = javaVersion
