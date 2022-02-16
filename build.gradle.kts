@@ -2,42 +2,26 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("fabric-loom")
-    val kotlinVersion: String by System.getProperties()
-    kotlin("jvm").version(kotlinVersion)
+    kotlin("jvm").version(System.getProperty("kotlinVersion"))
 }
 
 base {
-    val archivesBaseName: String by project
-    archivesName.set(archivesBaseName)
+    archivesName.set(project.property("archivesBaseName") as String)
 }
 
-val modVersion: String by project
-version = modVersion
-
-val mavenGroup: String by project
-group = mavenGroup
-
-minecraft {}
+version = project.property("modVersion") as String
+group = project.property("mavenGroup") as String
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    val minecraftVersion: String by project
-    minecraft("com.mojang:minecraft:$minecraftVersion")
-
-    val yarnMappings: String by project
-    mappings("net.fabricmc:yarn:$yarnMappings:v2")
-
-    val loaderVersion: String by project
-    modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
-
-    val fabricVersion: String by project
-    modImplementation("net.fabricmc.fabric-api:fabric-api:$fabricVersion")
-
-    val fabricKotlinVersion: String by project
-    modImplementation("net.fabricmc:fabric-language-kotlin:$fabricKotlinVersion")
+    minecraft("com.mojang:minecraft:${project.property("minecraftVersion")}")
+    mappings("net.fabricmc:yarn:${project.property("yarnMappings")}:v2")
+    modImplementation("net.fabricmc:fabric-loader:${project.property("loaderVersion")}")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabricVersion")}")
+    modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("fabricKotlinVersion")}")
 }
 
 tasks {
